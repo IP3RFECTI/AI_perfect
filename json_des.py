@@ -78,6 +78,30 @@ outlier_count = (outliers == -1).sum()
 df = df[outliers == 1]
 print(f"Удалено выбросов: {outlier_count}. Размер после очистки: {df.shape}")
 
+# === Графики распределения признаков ===
+print("\n📊 Графики распределения признаков (гистограммы и боксплоты):")
+import math
+
+numeric_cols = df.select_dtypes(include=[np.number]).columns
+n_cols = len(numeric_cols)
+n_rows = math.ceil(n_cols / 2)
+
+plt.figure(figsize=(15, n_rows * 4))
+for i, col in enumerate(numeric_cols):
+    plt.subplot(n_rows, 2, i + 1)
+    sns.histplot(df[col], kde=True, bins=30, color='skyblue')
+    plt.title(f'Распределение: {col}')
+plt.tight_layout()
+plt.show()
+
+plt.figure(figsize=(15, n_rows * 4))
+for i, col in enumerate(numeric_cols):
+    plt.subplot(n_rows, 2, i + 1)
+    sns.boxplot(x=df[col], color='lightcoral')
+    plt.title(f'Боксплот: {col}')
+plt.tight_layout()
+plt.show()
+
 # === Кодирование категориальных признаков ===
 def encode_categorical_features(df):
     df_encoded = df.copy()
