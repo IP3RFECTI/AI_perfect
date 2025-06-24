@@ -12,10 +12,9 @@ from sklearn.metrics import RocCurveDisplay
 
 # --- DATASET LOAD & PREPROCESSING (assumed to be done) ---
 
-# Example placeholder variables (replace with actual data loading):
-# df = pd.read_csv('data.csv')
-# X = df.drop('target', axis=1)
-# y = df['target']
+df = pd.read_csv('iris_обработанный.csv')
+X = df.drop('species', axis=1)
+y = df['species']
 
 # --- SPLITTING DATA ---
 # 60% train, 20% val, 20% test
