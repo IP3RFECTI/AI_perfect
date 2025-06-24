@@ -1,5 +1,5 @@
 # dataset_pipeline.py — универсальный шаблон с полными логами обработки датасета
-
+import plotly.express as px
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -101,6 +101,19 @@ for i, col in enumerate(numeric_cols):
     plt.title(f'Боксплот: {col}')
 plt.tight_layout()
 plt.show()
+
+for i in df.columns:
+    fig = px.histogram(df,
+                   x=i,
+                   marginal='box',
+                   text_auto=True,
+                   color_discrete_sequence  = ['forestgreen'],
+                   template='simple_white',
+                   title=i.upper() + ' HISTOGRAM')
+
+    fig.update_layout(xaxis_title=i,yaxis_title="Count", bargap=0.1)
+
+    fig.show()
 
 # === Кодирование категориальных признаков ===
 def encode_categorical_features(df):
